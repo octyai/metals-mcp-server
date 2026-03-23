@@ -1,0 +1,25 @@
+# Metals supply chain disruption watch
+
+Generated: {{ generated_at }}
+
+## Operational context
+{% for event in snapshot.events[:8] %}
+- **{{ event.title }}**{% if event.geo %} — {{ event.geo }}{% endif %}
+  {% if event.summary %}{{ event.summary }}{% endif %}
+{% endfor %}
+
+## Core market context
+{% for series_id, entry in snapshot.series.items() %}
+- {{ series_id }}: {{ "%.4f"|format(entry.latest.value) if entry.latest.value < 100 else "%.2f"|format(entry.latest.value) }} {{ entry.latest.unit }}
+{% endfor %}
+
+{% if scenario %}
+## Scenario output
+{% for series_id, price_range in scenario.price_ranges.items() %}
+- {{ series_id }} baseline {{ scenario.baselines[series_id] }}; low / central / high = {{ price_range.low }} / {{ price_range.central }} / {{ price_range.high }}
+{% endfor %}
+- Assumptions:
+{% for assumption in scenario.assumptions %}
+  - {{ assumption }}
+{% endfor %}
+{% endif %}

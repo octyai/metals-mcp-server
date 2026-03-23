@@ -1,0 +1,27 @@
+{
+  "name": "Newmont Corporation",
+  "cik": "1164727",
+  "tickers": [
+    "NEM"
+  ],
+  "filings": {
+    "recent": {
+      "form": [
+        "8-K",
+        "10-K"
+      ],
+      "filingDate": [
+        "2026-03-18",
+        "2026-02-24"
+      ],
+      "primaryDocument": [
+        "nem8k.htm",
+        "nem10k.htm"
+      ],
+      "accessionNumber": [
+        "0001164727-26-000011",
+        "0001164727-26-000009"
+      ]
+    }
+  }
+}

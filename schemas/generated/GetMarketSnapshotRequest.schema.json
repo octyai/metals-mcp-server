@@ -1,0 +1,40 @@
+{
+  "properties": {
+    "scope": {
+      "default": "global",
+      "enum": [
+        "global",
+        "us",
+        "north_america",
+        "latin_america",
+        "europe",
+        "asia",
+        "africa"
+      ],
+      "title": "Scope",
+      "type": "string"
+    },
+    "as_of": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "As Of"
+    },
+    "include": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Include",
+      "type": "array"
+    }
+  },
+  "title": "GetMarketSnapshotRequest",
+  "type": "object"
+}

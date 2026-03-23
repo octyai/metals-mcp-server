@@ -1,0 +1,28 @@
+{
+  "properties": {
+    "uri": {
+      "title": "Uri",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "mimeType": {
+      "default": "application/json",
+      "title": "Mimetype",
+      "type": "string"
+    }
+  },
+  "required": [
+    "uri",
+    "name",
+    "description"
+  ],
+  "title": "McpResource",
+  "type": "object"
+}

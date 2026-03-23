@@ -1,0 +1,88 @@
+{
+  "properties": {
+    "source_id": {
+      "title": "Source Id",
+      "type": "string"
+    },
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "adapter_type": {
+      "title": "Adapter Type",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "category": {
+      "enum": [
+        "market",
+        "fundamentals",
+        "weather",
+        "events",
+        "regulatory",
+        "documents"
+      ],
+      "title": "Category",
+      "type": "string"
+    },
+    "enabled": {
+      "default": true,
+      "title": "Enabled",
+      "type": "boolean"
+    },
+    "cadence_class": {
+      "default": "daily",
+      "title": "Cadence Class",
+      "type": "string"
+    },
+    "access_method": {
+      "default": "http",
+      "title": "Access Method",
+      "type": "string"
+    },
+    "base_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Base Url"
+    },
+    "auth": {
+      "default": "none",
+      "title": "Auth",
+      "type": "string"
+    },
+    "freshness_sla_seconds": {
+      "default": 3600,
+      "title": "Freshness Sla Seconds",
+      "type": "integer"
+    },
+    "criticality": {
+      "default": "tier_b",
+      "title": "Criticality",
+      "type": "string"
+    },
+    "settings": {
+      "additionalProperties": true,
+      "title": "Settings",
+      "type": "object"
+    }
+  },
+  "required": [
+    "source_id",
+    "name",
+    "adapter_type",
+    "description",
+    "category"
+  ],
+  "title": "SourceManifest",
+  "type": "object"
+}

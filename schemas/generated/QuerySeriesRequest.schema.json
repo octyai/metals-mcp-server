@@ -1,0 +1,60 @@
+{
+  "properties": {
+    "series_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Series Ids",
+      "type": "array"
+    },
+    "start": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Start"
+    },
+    "end": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "End"
+    },
+    "frequency": {
+      "default": "auto",
+      "title": "Frequency",
+      "type": "string"
+    },
+    "geo": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Geo"
+    }
+  },
+  "required": [
+    "series_ids"
+  ],
+  "title": "QuerySeriesRequest",
+  "type": "object"
+}

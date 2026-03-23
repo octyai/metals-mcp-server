@@ -1,0 +1,27 @@
+{
+  "name": "Pan American Silver Corp.",
+  "cik": "771992",
+  "tickers": [
+    "PAAS"
+  ],
+  "filings": {
+    "recent": {
+      "form": [
+        "6-K",
+        "40-F"
+      ],
+      "filingDate": [
+        "2026-03-10",
+        "2026-02-20"
+      ],
+      "primaryDocument": [
+        "paas6k.htm",
+        "paas40f.htm"
+      ],
+      "accessionNumber": [
+        "0000771992-26-000021",
+        "0000771992-26-000019"
+      ]
+    }
+  }
+}

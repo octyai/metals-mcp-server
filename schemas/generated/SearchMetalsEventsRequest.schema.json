@@ -1,0 +1,32 @@
+{
+  "properties": {
+    "query": {
+      "title": "Query",
+      "type": "string"
+    },
+    "since_hours": {
+      "default": 168,
+      "title": "Since Hours",
+      "type": "integer"
+    },
+    "geo": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Geo",
+      "type": "array"
+    },
+    "sources": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Sources",
+      "type": "array"
+    }
+  },
+  "required": [
+    "query"
+  ],
+  "title": "SearchMetalsEventsRequest",
+  "type": "object"
+}

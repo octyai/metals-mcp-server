@@ -1,0 +1,22 @@
+[
+  {
+    "artifact_id": "nem",
+    "cik": "0001164727",
+    "ticker": "NEM"
+  },
+  {
+    "artifact_id": "fcx",
+    "cik": "0000831259",
+    "ticker": "FCX"
+  },
+  {
+    "artifact_id": "scco",
+    "cik": "0001001838",
+    "ticker": "SCCO"
+  },
+  {
+    "artifact_id": "paas",
+    "cik": "0000771992",
+    "ticker": "PAAS"
+  }
+]

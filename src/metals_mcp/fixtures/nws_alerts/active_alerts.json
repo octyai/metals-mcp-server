@@ -1,0 +1,30 @@
+{
+  "features": [
+    {
+      "properties": {
+        "id": "nws-1",
+        "event": "Flood Warning",
+        "headline": "Flood warning affecting rail access to Arizona industrial corridor",
+        "description": "Heavy rainfall may disrupt concentrate and finished metal movements.",
+        "severity": "Severe",
+        "areaDesc": "Arizona",
+        "@id": "https://api.weather.gov/alerts/nws-1",
+        "sent": "2026-03-22T12:30:00Z",
+        "category": "Met"
+      }
+    },
+    {
+      "properties": {
+        "id": "nws-2",
+        "event": "High Wind Warning",
+        "headline": "High winds across Great Lakes port approaches",
+        "description": "Port operations and vessel scheduling may be delayed.",
+        "severity": "Moderate",
+        "areaDesc": "Great Lakes",
+        "@id": "https://api.weather.gov/alerts/nws-2",
+        "sent": "2026-03-21T06:00:00Z",
+        "category": "Met"
+      }
+    }
+  ]
+}

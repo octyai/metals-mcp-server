@@ -1,0 +1,31 @@
+version: "3.9"
+services:
+  metals-mcp:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - redis
+      - clickhouse
+      - postgres
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: metals
+      POSTGRES_PASSWORD: metals
+      POSTGRES_DB: metals_mcp
+    ports:
+      - "5432:5432"

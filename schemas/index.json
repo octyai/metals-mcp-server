@@ -1,0 +1,20 @@
+{
+  "SourceManifest": "generated/SourceManifest.schema.json",
+  "SourceArtifact": "generated/SourceArtifact.schema.json",
+  "ValidationResult": "generated/ValidationResult.schema.json",
+  "ObservationRecord": "generated/ObservationRecord.schema.json",
+  "EventRecord": "generated/EventRecord.schema.json",
+  "DocumentRecord": "generated/DocumentRecord.schema.json",
+  "ReportArtifact": "generated/ReportArtifact.schema.json",
+  "JsonRpcRequest": "generated/JsonRpcRequest.schema.json",
+  "JsonRpcResponse": "generated/JsonRpcResponse.schema.json",
+  "McpResource": "generated/McpResource.schema.json",
+  "McpPrompt": "generated/McpPrompt.schema.json",
+  "QuerySeriesRequest": "generated/QuerySeriesRequest.schema.json",
+  "GetMarketSnapshotRequest": "generated/GetMarketSnapshotRequest.schema.json",
+  "SearchMetalsEventsRequest": "generated/SearchMetalsEventsRequest.schema.json",
+  "GenerateReportRequest": "generated/GenerateReportRequest.schema.json",
+  "RunScenarioRequest": "generated/RunScenarioRequest.schema.json",
+  "GetAssetStatusRequest": "generated/GetAssetStatusRequest.schema.json",
+  "IngestSourceRequest": "generated/IngestSourceRequest.schema.json"
+}

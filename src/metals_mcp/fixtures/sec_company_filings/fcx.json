@@ -1,0 +1,27 @@
+{
+  "name": "Freeport-McMoRan Inc.",
+  "cik": "831259",
+  "tickers": [
+    "FCX"
+  ],
+  "filings": {
+    "recent": {
+      "form": [
+        "8-K",
+        "10-K"
+      ],
+      "filingDate": [
+        "2026-03-17",
+        "2026-02-21"
+      ],
+      "primaryDocument": [
+        "fcx8k.htm",
+        "fcx10k.htm"
+      ],
+      "accessionNumber": [
+        "0000831259-26-000031",
+        "0000831259-26-000026"
+      ]
+    }
+  }
+}

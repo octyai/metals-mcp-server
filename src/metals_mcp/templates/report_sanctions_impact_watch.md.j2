@@ -1,0 +1,12 @@
+# Policy and sanctions impact watch
+
+Generated: {{ generated_at }}
+
+## Relevant events and documents
+{% for event in snapshot.events[:5] %}
+- **{{ event.title }}**{% if event.summary %}: {{ event.summary }}{% endif %}
+{% endfor %}
+
+{% for doc in recent_documents[:5] %}
+- Document: **{{ doc.title }}**{% if doc.url %} ({{ doc.url }}){% endif %}
+{% endfor %}

@@ -1,0 +1,31 @@
+{
+  "properties": {
+    "name": {
+      "title": "Name",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "arguments": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Arguments",
+      "type": "array"
+    }
+  },
+  "required": [
+    "name",
+    "title",
+    "description"
+  ],
+  "title": "McpPrompt",
+  "type": "object"
+}

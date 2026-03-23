@@ -1,0 +1,29 @@
+# Intraday metals market snapshot
+
+Generated: {{ generated_at }}
+
+## Benchmarks and core series
+{% for series_id, entry in snapshot.series.items() %}
+- **{{ series_id }}**: {{ "%.4f"|format(entry.latest.value) if entry.latest.value < 100 else "%.2f"|format(entry.latest.value) }} {{ entry.latest.unit }}{% if entry.change is not none %} (Δ {{ "%+.4f"|format(entry.change) if entry.latest.value < 100 else "%+.2f"|format(entry.change) }}, {{ "%+.2f"|format(entry.change_pct or 0) }}%){% endif %}
+{% endfor %}
+
+## Current risks
+{% if snapshot.risks %}
+{% for risk in snapshot.risks %}
+- {{ risk }}
+{% endfor %}
+{% else %}
+- No major cross-source risk signals detected in the current fixture set.
+{% endif %}
+
+## Top events
+{% for event in snapshot.events[:5] %}
+- **{{ event.title }}**{% if event.geo %} — {{ event.geo }}{% endif %}
+  {% if event.summary %}{{ event.summary }}{% endif %}
+  {% if event.url %}Source: {{ event.url }}{% endif %}
+{% endfor %}
+
+## Source status
+{% for source in snapshot.source_status %}
+- {{ source.source_id }}: observations={{ source.observation_count }}, events={{ source.event_count }}, documents={{ source.document_count }}
+{% endfor %}

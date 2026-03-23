@@ -1,0 +1,27 @@
+{
+  "name": "Southern Copper Corporation",
+  "cik": "1001838",
+  "tickers": [
+    "SCCO"
+  ],
+  "filings": {
+    "recent": {
+      "form": [
+        "8-K",
+        "10-K"
+      ],
+      "filingDate": [
+        "2026-03-12",
+        "2026-02-12"
+      ],
+      "primaryDocument": [
+        "scco8k.htm",
+        "scco10k.htm"
+      ],
+      "accessionNumber": [
+        "0001001838-26-000008",
+        "0001001838-26-000006"
+      ]
+    }
+  }
+}

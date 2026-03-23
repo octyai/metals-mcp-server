@@ -1,0 +1,60 @@
+{
+  "properties": {
+    "template": {
+      "default": "intraday_market_snapshot",
+      "enum": [
+        "intraday_market_snapshot",
+        "shipping_disruption_watch",
+        "storm_impact_watch",
+        "sanctions_impact_watch",
+        "mine_disruption_watch",
+        "executive_brief"
+      ],
+      "title": "Template",
+      "type": "string"
+    },
+    "scope": {
+      "default": "global",
+      "title": "Scope",
+      "type": "string"
+    },
+    "as_of": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "As Of"
+    },
+    "max_length": {
+      "default": "medium",
+      "enum": [
+        "short",
+        "medium",
+        "long"
+      ],
+      "title": "Max Length",
+      "type": "string"
+    },
+    "scenario": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Scenario"
+    }
+  },
+  "title": "GenerateReportRequest",
+  "type": "object"
+}

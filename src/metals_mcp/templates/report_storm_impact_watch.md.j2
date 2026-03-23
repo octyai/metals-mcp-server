@@ -1,0 +1,14 @@
+# Weather and power impact watch
+
+Generated: {{ generated_at }}
+
+## Weather-linked events
+{% for event in snapshot.events if 'weather' in (event.event_type or '') or 'storm' in (event.title or '')|lower or 'flood' in (event.title or '')|lower or 'power' in (event.summary or '')|lower %}
+- **{{ event.title }}**{% if event.geo %} — {{ event.geo }}{% endif %}
+  {% if event.summary %}{{ event.summary }}{% endif %}
+{% endfor %}
+
+## Fundamentals snapshot
+{% for series_id, entry in snapshot.series.items() %}
+- {{ series_id }}: {{ "%.4f"|format(entry.latest.value) if entry.latest.value < 100 else "%.2f"|format(entry.latest.value) }} {{ entry.latest.unit }}
+{% endfor %}

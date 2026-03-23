@@ -1,0 +1,137 @@
+{
+  "$defs": {
+    "Shock": {
+      "properties": {
+        "type": {
+          "enum": [
+            "mine_disruption",
+            "smelter_outage",
+            "sanctions",
+            "logistics_disruption",
+            "exchange_disruption",
+            "power_disruption",
+            "volatility_multiplier"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "route": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Route"
+        },
+        "pct": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pct"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "region": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Region"
+        },
+        "asset": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Asset"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "title": "Shock",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "scenario_type": {
+      "enum": [
+        "mine",
+        "smelter",
+        "sanctions",
+        "logistics",
+        "exchange",
+        "macro"
+      ],
+      "title": "Scenario Type",
+      "type": "string"
+    },
+    "shocks": {
+      "items": {
+        "$ref": "#/$defs/Shock"
+      },
+      "title": "Shocks",
+      "type": "array"
+    },
+    "horizon_days": {
+      "default": 14,
+      "title": "Horizon Days",
+      "type": "integer"
+    },
+    "target_series_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Target Series Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "scenario_type",
+    "shocks"
+  ],
+  "title": "RunScenarioRequest",
+  "type": "object"
+}

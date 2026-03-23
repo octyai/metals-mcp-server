@@ -1,0 +1,47 @@
+{
+  "properties": {
+    "report_id": {
+      "title": "Report Id",
+      "type": "string"
+    },
+    "template_name": {
+      "title": "Template Name",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "scope": {
+      "title": "Scope",
+      "type": "string"
+    },
+    "payload": {
+      "additionalProperties": true,
+      "title": "Payload",
+      "type": "object"
+    },
+    "markdown": {
+      "title": "Markdown",
+      "type": "string"
+    },
+    "citations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Citations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "report_id",
+    "template_name",
+    "created_at",
+    "scope",
+    "payload",
+    "markdown"
+  ],
+  "title": "ReportArtifact",
+  "type": "object"
+}

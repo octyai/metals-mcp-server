@@ -1,0 +1,50 @@
+[
+  {
+    "artifact_id": "dxy_major",
+    "kind": "json",
+    "metadata": {
+      "series_id": "fred:dxy_major",
+      "label": "Major currencies U.S. dollar index",
+      "unit": "index",
+      "commodity": "macro",
+      "frequency": "daily",
+      "geo": "global"
+    }
+  },
+  {
+    "artifact_id": "real_yield_10y",
+    "kind": "json",
+    "metadata": {
+      "series_id": "fred:real_yield_10y",
+      "label": "10-year TIPS real yield",
+      "unit": "percent",
+      "commodity": "macro",
+      "frequency": "daily",
+      "geo": "US"
+    }
+  },
+  {
+    "artifact_id": "copper_world",
+    "kind": "json",
+    "metadata": {
+      "series_id": "fred:copper_world_monthly",
+      "label": "Global copper price",
+      "unit": "USD/metric_ton",
+      "commodity": "copper",
+      "frequency": "monthly",
+      "geo": "global"
+    }
+  },
+  {
+    "artifact_id": "copper_ppi",
+    "kind": "json",
+    "metadata": {
+      "series_id": "fred:copper_ppi",
+      "label": "Producer price index for copper and copper products",
+      "unit": "index",
+      "commodity": "copper",
+      "frequency": "monthly",
+      "geo": "US"
+    }
+  }
+]

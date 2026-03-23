@@ -1,0 +1,18 @@
+# Executive metals market brief
+
+Generated: {{ generated_at }}
+
+## What changed
+{% for series_id, entry in snapshot.series.items() %}
+- {{ series_id }} at {{ "%.4f"|format(entry.latest.value) if entry.latest.value < 100 else "%.2f"|format(entry.latest.value) }} {{ entry.latest.unit }}{% if entry.change is not none %}, change {{ "%+.4f"|format(entry.change) if entry.latest.value < 100 else "%+.2f"|format(entry.change) }}{% endif %}
+{% endfor %}
+
+## Main risks
+{% for risk in snapshot.risks %}
+- {{ risk }}
+{% endfor %}
+
+## Watch items
+{% for event in snapshot.events[:5] %}
+- {{ event.title }}
+{% endfor %}

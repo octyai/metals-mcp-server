@@ -1,0 +1,23 @@
+{
+  "properties": {
+    "source_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Source Id"
+    },
+    "all_sources": {
+      "default": false,
+      "title": "All Sources",
+      "type": "boolean"
+    }
+  },
+  "title": "IngestSourceRequest",
+  "type": "object"
+}

@@ -1,0 +1,242 @@
+version: 1
+sources:
+  - source_id: cme_metals_quotes
+    name: CME Delayed Metals Quotes
+    adapter_type: cme_quotes
+    description: Curated delayed CME metals front-contract quotes for precious and base metals.
+    category: market
+    cadence_class: near_realtime
+    access_method: html
+    base_url: https://www.cmegroup.com
+    freshness_sla_seconds: 900
+    criticality: tier_a
+    settings:
+      series:
+        - artifact_id: gold
+          kind: html
+          url: "https://www.cmegroup.com/markets/metals/precious/gold.html"
+          metadata:
+            series_id: cme:gold_front
+            label: COMEX Gold front contract
+            unit: USD/troy_oz
+            commodity: gold
+            frequency: intraday_delayed
+            geo: global
+        - artifact_id: silver
+          kind: html
+          url: "https://www.cmegroup.com/markets/metals/precious/silver.html"
+          metadata:
+            series_id: cme:silver_front
+            label: COMEX Silver front contract
+            unit: USD/troy_oz
+            commodity: silver
+            frequency: intraday_delayed
+            geo: global
+        - artifact_id: copper
+          kind: html
+          url: "https://www.cmegroup.com/markets/metals/base/copper.quotes.html"
+          metadata:
+            series_id: cme:copper_front
+            label: COMEX Copper front contract
+            unit: USD/lb
+            commodity: copper
+            frequency: intraday_delayed
+            geo: global
+        - artifact_id: platinum
+          kind: html
+          url: "https://www.cmegroup.com/markets/metals/precious/platinum.quotes.html"
+          metadata:
+            series_id: cme:platinum_front
+            label: NYMEX Platinum front contract
+            unit: USD/troy_oz
+            commodity: platinum
+            frequency: intraday_delayed
+            geo: global
+        - artifact_id: palladium
+          kind: html
+          url: "https://www.cmegroup.com/markets/metals/precious/palladium.quotes.html"
+          metadata:
+            series_id: cme:palladium_front
+            label: NYMEX Palladium front contract
+            unit: USD/troy_oz
+            commodity: palladium
+            frequency: intraday_delayed
+            geo: global
+
+  - source_id: fred_metals_macro
+    name: FRED Metals Macro
+    adapter_type: fred_series
+    description: Public FRED series used as macro and longer-cycle fundamentals overlays for metals.
+    category: fundamentals
+    cadence_class: daily
+    access_method: api
+    base_url: https://api.stlouisfed.org
+    auth: api_key
+    freshness_sla_seconds: 3600
+    criticality: tier_a
+    settings:
+      series:
+        - artifact_id: dxy_major
+          kind: json
+          url: "https://api.stlouisfed.org/fred/series/observations?series_id=DTWEXM&api_key={api_key}&file_type=json"
+          metadata:
+            series_id: fred:dxy_major
+            label: Major currencies U.S. dollar index
+            unit: index
+            commodity: macro
+            frequency: daily
+            geo: global
+        - artifact_id: real_yield_10y
+          kind: json
+          url: "https://api.stlouisfed.org/fred/series/observations?series_id=DFII10&api_key={api_key}&file_type=json"
+          metadata:
+            series_id: fred:real_yield_10y
+            label: 10-year TIPS real yield
+            unit: percent
+            commodity: macro
+            frequency: daily
+            geo: US
+        - artifact_id: copper_world
+          kind: json
+          url: "https://api.stlouisfed.org/fred/series/observations?series_id=PCOPPUSDM&api_key={api_key}&file_type=json"
+          metadata:
+            series_id: fred:copper_world_monthly
+            label: Global copper price
+            unit: USD/metric_ton
+            commodity: copper
+            frequency: monthly
+            geo: global
+        - artifact_id: copper_ppi
+          kind: json
+          url: "https://api.stlouisfed.org/fred/series/observations?series_id=WPUSI019011&api_key={api_key}&file_type=json"
+          metadata:
+            series_id: fred:copper_ppi
+            label: Producer price index for copper and copper products
+            unit: index
+            commodity: copper
+            frequency: monthly
+            geo: US
+
+  - source_id: nws_alerts
+    name: National Weather Service Alerts
+    adapter_type: nws_alerts
+    description: Active U.S. weather alerts relevant to mining, smelting, and transport operations.
+    category: weather
+    cadence_class: fast
+    access_method: api
+    base_url: https://api.weather.gov
+    freshness_sla_seconds: 300
+    criticality: tier_b
+    settings:
+      url: https://api.weather.gov/alerts/active?status=actual&message_type=alert
+
+  - source_id: gdelt_metals_events
+    name: GDELT Metals Events
+    adapter_type: gdelt_doc
+    description: Metals-focused public event and news feed.
+    category: events
+    cadence_class: near_realtime
+    access_method: api
+    base_url: https://api.gdeltproject.org
+    freshness_sla_seconds: 900
+    criticality: tier_a
+    settings:
+      query: "(gold OR silver OR copper OR platinum OR palladium OR nickel OR zinc OR aluminium OR smelter OR mine OR concentrate OR cathode)"
+      timespan: 1day
+
+  - source_id: sec_company_filings
+    name: SEC Mining and Metals Filings
+    adapter_type: sec_submissions
+    description: Recent filings from major public mining and metals companies.
+    category: regulatory
+    cadence_class: hourly
+    access_method: api
+    base_url: https://data.sec.gov
+    freshness_sla_seconds: 3600
+    criticality: tier_b
+    settings:
+      companies:
+        - artifact_id: nem
+          cik: "0001164727"
+          ticker: NEM
+        - artifact_id: fcx
+          cik: "0000831259"
+          ticker: FCX
+        - artifact_id: scco
+          cik: "0001001838"
+          ticker: SCCO
+        - artifact_id: paas
+          cik: "0000771992"
+          ticker: PAAS
+
+  - source_id: usgs_mineral_summaries
+    name: USGS Mineral Commodity Summaries
+    adapter_type: generic_document
+    description: USGS metals and mineral statistics, annual summaries, and commodity pages.
+    category: documents
+    cadence_class: daily
+    access_method: html
+    base_url: https://www.usgs.gov
+    freshness_sla_seconds: 86400
+    criticality: tier_a
+    settings:
+      list_url: https://www.usgs.gov/centers/national-minerals-information-center/commodity-statistics-and-information
+      selectors: ["a"]
+      allowed_patterns: ["gold", "silver", "copper", "platinum", "palladium", "mineral commodity summaries", "minerals yearbook", ".pdf"]
+      deny_patterns: ["mailto:"]
+      tags: ["usgs", "fundamentals"]
+      max_links: 25
+
+  - source_id: lbma_precious_docs
+    name: LBMA Precious Metals Pages
+    adapter_type: generic_document
+    description: Public LBMA benchmark, licensing, and market pages for precious metals.
+    category: documents
+    cadence_class: daily
+    access_method: html
+    base_url: https://www.lbma.org.uk
+    freshness_sla_seconds: 86400
+    criticality: tier_b
+    settings:
+      list_url: https://www.lbma.org.uk/prices-and-data/precious-metal-prices
+      selectors: ["a"]
+      allowed_patterns: ["gold", "silver", "platinum", "palladium", "benchmark", "price", "licence", "license"]
+      deny_patterns: ["mailto:"]
+      tags: ["lbma", "precious_metals"]
+      max_links: 20
+
+  - source_id: lme_market_pages
+    name: LME Market Pages
+    adapter_type: generic_document
+    description: Public LME market data and reference pages for industrial metals.
+    category: documents
+    cadence_class: daily
+    access_method: html
+    base_url: https://www.lme.com
+    freshness_sla_seconds: 86400
+    criticality: tier_b
+    settings:
+      list_url: https://www.lme.com/metals/non-ferrous
+      selectors: ["a"]
+      allowed_patterns: ["copper", "nickel", "zinc", "lead", "tin", "3rd Wednesday", "delayed", "price", "non-ferrous"]
+      deny_patterns: ["mailto:"]
+      tags: ["lme", "industrial_metals"]
+      max_links: 20
+
+  - source_id: lme_member_notices
+    name: LME Notices
+    adapter_type: generic_document
+    description: Recent public LME notices and circulars affecting brands, warehousing, or trading.
+    category: regulatory
+    cadence_class: daily
+    access_method: html
+    base_url: https://www.lme.com
+    freshness_sla_seconds: 86400
+    criticality: tier_b
+    settings:
+      list_url: https://www.lme.com/
+      selectors: ["a"]
+      allowed_patterns: ["suspension", "listing", "nickel", "tin", "warehouse", "notice", "circular"]
+      deny_patterns: ["mailto:"]
+      tags: ["lme", "notice"]
+      max_links: 20

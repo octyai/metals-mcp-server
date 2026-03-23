@@ -1,0 +1,28 @@
+{
+  "articles": [
+    {
+      "title": "Copper mine strike threat tightens concentrate outlook",
+      "url": "https://example.com/copper-mine-strike",
+      "snippet": "Union negotiations at a large Latin American mine are raising concerns over near-term concentrate supply.",
+      "sourcecountry": "CL",
+      "domain": "example.com",
+      "seendate": "2026-03-22T08:00:00Z"
+    },
+    {
+      "title": "South African power interruptions weigh on platinum producers",
+      "url": "https://example.com/platinum-power",
+      "snippet": "Rolling outages are increasing operational risk for smelters and PGM mines.",
+      "sourcecountry": "ZA",
+      "domain": "example.com",
+      "seendate": "2026-03-21T15:45:00Z"
+    },
+    {
+      "title": "Central bank demand keeps gold bid firm",
+      "url": "https://example.com/gold-demand",
+      "snippet": "Reserve diversification remains supportive for bullion benchmarks.",
+      "sourcecountry": "GB",
+      "domain": "example.com",
+      "seendate": "2026-03-21T10:15:00Z"
+    }
+  ]
+}

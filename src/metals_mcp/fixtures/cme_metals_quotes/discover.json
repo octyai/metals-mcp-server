@@ -1,0 +1,62 @@
+[
+  {
+    "artifact_id": "gold",
+    "kind": "json",
+    "metadata": {
+      "series_id": "cme:gold_front",
+      "label": "COMEX Gold front contract",
+      "unit": "USD/troy_oz",
+      "commodity": "gold",
+      "frequency": "intraday_delayed",
+      "geo": "global"
+    }
+  },
+  {
+    "artifact_id": "silver",
+    "kind": "json",
+    "metadata": {
+      "series_id": "cme:silver_front",
+      "label": "COMEX Silver front contract",
+      "unit": "USD/troy_oz",
+      "commodity": "silver",
+      "frequency": "intraday_delayed",
+      "geo": "global"
+    }
+  },
+  {
+    "artifact_id": "copper",
+    "kind": "json",
+    "metadata": {
+      "series_id": "cme:copper_front",
+      "label": "COMEX Copper front contract",
+      "unit": "USD/lb",
+      "commodity": "copper",
+      "frequency": "intraday_delayed",
+      "geo": "global"
+    }
+  },
+  {
+    "artifact_id": "platinum",
+    "kind": "json",
+    "metadata": {
+      "series_id": "cme:platinum_front",
+      "label": "NYMEX Platinum front contract",
+      "unit": "USD/troy_oz",
+      "commodity": "platinum",
+      "frequency": "intraday_delayed",
+      "geo": "global"
+    }
+  },
+  {
+    "artifact_id": "palladium",
+    "kind": "json",
+    "metadata": {
+      "series_id": "cme:palladium_front",
+      "label": "NYMEX Palladium front contract",
+      "unit": "USD/troy_oz",
+      "commodity": "palladium",
+      "frequency": "intraday_delayed",
+      "geo": "global"
+    }
+  }
+]
