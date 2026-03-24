@@ -28,6 +28,7 @@ class Settings:
     http_timeout_seconds: float = 20.0
     user_agent: str = "metals-mcp-server/0.1 (+contact@example.com)"
     fred_api_key: str | None = None
+    gdelt_max_records: int = 25
     enable_metrics: bool = True
     tracked_regions: list[str] = field(
         default_factory=lambda: [
@@ -60,6 +61,7 @@ class Settings:
             http_timeout_seconds=float(os.getenv("METALS_MCP_HTTP_TIMEOUT_SECONDS", "20")),
             user_agent=os.getenv("METALS_MCP_USER_AGENT", "metals-mcp-server/0.1 (+contact@example.com)"),
             fred_api_key=os.getenv("METALS_MCP_FRED_API_KEY"),
+            gdelt_max_records=int(os.getenv("METALS_MCP_GDELT_MAX_RECORDS", "25")),
             enable_metrics=os.getenv("METALS_MCP_ENABLE_METRICS", "true").lower() in {"1", "true", "yes"},
             tracked_regions=_split_csv(
                 os.getenv(

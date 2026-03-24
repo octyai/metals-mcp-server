@@ -22,13 +22,18 @@ class SqliteStore:
 
     @contextmanager
     def _connect(self):
-        conn = sqlite3.connect(self.db_path)
+        conn = sqlite3.connect(self.db_path, timeout=30.0)
+        conn.execute("PRAGMA busy_timeout = 30000")
         conn.row_factory = sqlite3.Row
         try:
             yield conn
             conn.commit()
         finally:
             conn.close()
+
+    def checkpoint(self) -> None:
+        with self._connect() as conn:
+            conn.execute("PRAGMA wal_checkpoint(TRUNCATE)")
 
     def _init_db(self) -> None:
         with self._connect() as conn:

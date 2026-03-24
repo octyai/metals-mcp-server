@@ -29,11 +29,20 @@ _UPDATED_PATTERNS = [
 
 
 class CMEQuoteAdapter(SourceAdapter):
+    def __init__(self, manifest, settings) -> None:
+        super().__init__(manifest, settings)
+        self._parse_warnings: list[str] = []
+
     def discover(self) -> list[SourceArtifact]:
         items = self.manifest.settings.get("series", [])
         if self.use_fixtures():
             items = self.load_fixture_json("discover.json")
         return [SourceArtifact(source_id=self.manifest.source_id, **item) for item in items]
+
+    def collect_parse_warnings(self) -> list[str]:
+        warnings = self._parse_warnings
+        self._parse_warnings = []
+        return warnings
 
     def fetch(self, artifact: SourceArtifact) -> RawPayload:
         if self.use_fixtures():
@@ -59,6 +68,7 @@ class CMEQuoteAdapter(SourceAdapter):
         )
 
     def parse(self, payload: RawPayload) -> list[dict[str, Any]]:
+        artifact_id = payload.metadata.get("artifact_id", payload.artifact_id)
         if payload.data is not None:
             if isinstance(payload.data, dict):
                 if "quotes" in payload.data:
@@ -69,10 +79,10 @@ class CMEQuoteAdapter(SourceAdapter):
         text = payload.text or ""
         if not text:
             return []
-        parsed = self._parse_html(text)
+        parsed = self._parse_html(text, artifact_id)
         return [parsed] if parsed else []
 
-    def _parse_html(self, text: str) -> dict[str, Any] | None:
+    def _parse_html(self, text: str, artifact_id: str) -> dict[str, Any] | None:
         soup = BeautifulSoup(text, "html.parser")
         value = None
         previous = None
@@ -97,6 +107,9 @@ class CMEQuoteAdapter(SourceAdapter):
             observed_at = self._search_timestamp(text_blob)
 
         if value is None:
+            msg = f"CME price parse miss for {artifact_id} — no patterns matched"
+            self.logger.warning(msg)
+            self._parse_warnings.append(msg)
             return None
         row: dict[str, Any] = {"value": value}
         if previous is not None:

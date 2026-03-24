@@ -84,6 +84,9 @@ uvicorn metals_mcp.app:create_app --factory --reload --port 8080
 
 ### 3. Bootstrap sample data
 
+> [!note]
+> The SQLite database (`data/metals_mcp.db`) and raw archive (`data/raw/`) are excluded from the distribution tarball. Bootstrap creates them fresh on first run.
+
 ```bash
 curl -X POST http://localhost:8080/admin/bootstrap
 ```

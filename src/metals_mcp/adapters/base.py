@@ -14,7 +14,7 @@ from metals_mcp.models.canonical import DocumentRecord, EventRecord, Observation
 from metals_mcp.models.common import RawPayload, SourceArtifact, SourceManifest, ValidationResult
 from metals_mcp.storage.raw_archive import RawArchiveStore
 from metals_mcp.storage.sqlite_store import SqliteStore
-from metals_mcp.utils import load_json, load_text, now_utc
+from metals_mcp.utils import load_json, load_text
 
 
 class IngestSummary(BaseModel):
@@ -65,6 +65,10 @@ class SourceAdapter(ABC):
     def parse(self, payload: RawPayload) -> list[dict[str, Any]]:
         raise NotImplementedError
 
+    def collect_parse_warnings(self) -> list[str]:
+        """Override to surface parse-time warnings (e.g., CME parse miss) into summary.warnings."""
+        return []
+
     @abstractmethod
     def normalize(self, parsed: list[dict[str, Any]], payload: RawPayload) -> list[ObservationRecord | EventRecord | DocumentRecord]:
         raise NotImplementedError
@@ -81,6 +85,8 @@ class SourceAdapter(ABC):
             archive_path = archive.save(self.manifest.source_id, artifact.artifact_id, payload.data or payload.text or "", suffix=".json" if payload.data is not None else ".txt")
             payload.metadata["raw_pointer"] = archive_path
             parsed = self.parse(payload)
+            for w in self.collect_parse_warnings():
+                summary.warnings.append(w)
             records = self.normalize(parsed, payload)
             validation = self.validate(records)
             for issue in validation.issues:
