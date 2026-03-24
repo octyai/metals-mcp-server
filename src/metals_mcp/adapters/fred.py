@@ -2,10 +2,18 @@ from __future__ import annotations
 
 from typing import Any
 
+import backoff
+import httpx
+
 from metals_mcp.adapters.base import SourceAdapter
 from metals_mcp.models.canonical import ObservationRecord
 from metals_mcp.models.common import Provenance, RawPayload, SourceArtifact
 from metals_mcp.utils import now_utc, parse_datetime
+
+
+def _should_retry(exc: httpx.HTTPStatusError) -> bool:
+    """Return True for retryable errors (429 and 5xx); False for non-retryable."""
+    return exc.response.status_code in {429} or 500 <= exc.response.status_code < 600
 
 
 class FredAdapter(SourceAdapter):
@@ -14,6 +22,17 @@ class FredAdapter(SourceAdapter):
         if self.use_fixtures():
             series = self.load_fixture_json("discover.json")
         return [SourceArtifact(source_id=self.manifest.source_id, **item) for item in series]
+
+    def _retrying_get(self, url: str) -> httpx.Response:
+        @backoff.on_exception(
+            backoff.expo,
+            httpx.HTTPStatusError,
+            max_time=30,
+            giveup=lambda exc: not _should_retry(exc),
+        )
+        def _get() -> httpx.Response:
+            return self._http.get(url)
+        return _get()
 
     def fetch(self, artifact: SourceArtifact) -> RawPayload:
         if self.use_fixtures():
@@ -30,7 +49,7 @@ class FredAdapter(SourceAdapter):
         url = artifact.url.format(api_key=self.settings.fred_api_key) if artifact.url else None
         if not url:
             raise RuntimeError(f"FRED artifact {artifact.artifact_id} missing url")
-        response = self._http.get(url)
+        response = self._retrying_get(url)
         response.raise_for_status()
         return RawPayload(
             source_id=self.manifest.source_id,

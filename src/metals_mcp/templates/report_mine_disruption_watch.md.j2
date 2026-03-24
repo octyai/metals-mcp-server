@@ -18,4 +18,6 @@ Generated: {{ generated_at }}
 {% for series_id, price_range in scenario.price_ranges.items() %}
 - {{ series_id }} low / central / high = {{ price_range.low }} / {{ price_range.central }} / {{ price_range.high }}
 {% endfor %}
+
+> [!warning] Illustrative only. Sensitivities are not calibrated against historical data.
 {% endif %}

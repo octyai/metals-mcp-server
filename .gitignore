@@ -1,4 +1,3 @@
-
 __pycache__/
 .pytest_cache/
 .ruff_cache/
@@ -6,7 +5,13 @@ __pycache__/
 .env
 .venv/
 *.pyc
-data/
+*.db
+data/raw/
+data/reports/
+data/metals_mcp.db
 artifacts/
 coverage.xml
 htmlcov/
+*.egg-info/
+uv.lock
+metals-mcp-server.tar.gz

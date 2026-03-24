@@ -110,4 +110,5 @@ class ScenarioEngine:
             "impacted_assets": sorted(set(impacted_assets)),
             "assumptions": assumptions,
             "horizon_days": request.horizon_days,
+            "disclaimer": "Illustrative only. Sensitivities are not calibrated against historical data.",
         }

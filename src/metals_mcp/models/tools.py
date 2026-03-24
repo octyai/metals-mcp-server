@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class QuerySeriesRequest(BaseModel):
@@ -58,6 +58,18 @@ class Shock(BaseModel):
     region: str | None = None
     asset: str | None = None
     description: str | None = None
+
+    @field_validator("pct", "value")
+    @classmethod
+    def _bound_shock_values(cls, v: float | None) -> float | None:
+        if v is None:
+            return v
+        if abs(v) > 10_000:
+            raise ValueError(
+                f"Shock value {v} exceeds bound of 10000. "
+                "Please verify the value is physically plausible before retry."
+            )
+        return v
 
 
 class RunScenarioRequest(BaseModel):

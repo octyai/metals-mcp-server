@@ -2,10 +2,18 @@ from __future__ import annotations
 
 from typing import Any
 
+import backoff
+import httpx
+
 from metals_mcp.adapters.base import SourceAdapter
 from metals_mcp.models.canonical import EventRecord
 from metals_mcp.models.common import Provenance, RawPayload, SourceArtifact
 from metals_mcp.utils import now_utc, parse_datetime, stable_hash
+
+
+def _should_retry(exc: httpx.HTTPStatusError) -> bool:
+    """Return True for retryable errors (429 and 5xx); False for non-retryable."""
+    return exc.response.status_code in {429} or 500 <= exc.response.status_code < 600
 
 
 class GDELTAdapter(SourceAdapter):
@@ -17,15 +25,26 @@ class GDELTAdapter(SourceAdapter):
         timespan = self.manifest.settings.get("timespan", "1day")
         url = self.manifest.settings.get(
             "url_template",
-            "https://api.gdeltproject.org/api/v2/doc/doc?query={query}&mode=artlist&format=json&maxrecords=25&timespan={timespan}",
-        ).format(query=query, timespan=timespan)
+            "https://api.gdeltproject.org/api/v2/doc/doc?query={query}&mode=artlist&format=json&maxrecords={max_records}&timespan={timespan}",
+        ).format(query=query, max_records=self.settings.gdelt_max_records, timespan=timespan)
         return [SourceArtifact(source_id=self.manifest.source_id, artifact_id="gdelt_doc", kind="json", url=url, metadata={"query": query})]
+
+    def _retrying_get(self, url: str) -> httpx.Response:
+        @backoff.on_exception(
+            backoff.expo,
+            httpx.HTTPStatusError,
+            max_time=30,
+            giveup=lambda exc: not _should_retry(exc),
+        )
+        def _get() -> httpx.Response:
+            return self._http.get(url)
+        return _get()
 
     def fetch(self, artifact: SourceArtifact) -> RawPayload:
         if self.use_fixtures():
             data = self.load_fixture_json("gdelt_doc.json")
             return RawPayload(source_id=self.manifest.source_id, artifact_id=artifact.artifact_id, retrieved_at=now_utc(), data=data, metadata=artifact.metadata)
-        response = self._http.get(artifact.url)
+        response = self._retrying_get(artifact.url)
         response.raise_for_status()
         return RawPayload(source_id=self.manifest.source_id, artifact_id=artifact.artifact_id, retrieved_at=now_utc(), data=response.json(), metadata=artifact.metadata)
 

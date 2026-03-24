@@ -57,6 +57,7 @@ class MetalsMCPService:
                 summaries.append(summary.model_dump())
             finally:
                 adapter.close()
+        self.ctx.store.checkpoint()
         return summaries
 
     def query_series(self, request: QuerySeriesRequest) -> dict[str, Any]:
@@ -124,6 +125,7 @@ class MetalsMCPService:
             "generated_at": now_utc().isoformat(),
             "snapshot": snapshot,
             "scenario": scenario,
+            "scenario_disclaimer": "Illustrative only. Sensitivities are not calibrated against historical data.",
             "recent_documents": recent_documents[:10],
             "max_length": request.max_length,
         }
